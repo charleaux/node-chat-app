@@ -18,13 +18,6 @@ socket.on('newMessage', function (message) {
     jQuery('#messages').append(li);
 });
 
-// socket.emit('createMessage', {
-//     from: 'Frank',
-//     text: 'Hi'
-// }, function (data) {
-//     console.log('Got it', data);
-// });
-
 jQuery('#message-form').on('submit', function (e) {
     e.preventDefault();
 
@@ -33,5 +26,22 @@ jQuery('#message-form').on('submit', function (e) {
         text: jQuery('[name=message]').val()
     }, function () {
 
+    });
+
+    jQuery('[name=message]').val('');
+});
+
+var locationButton = jQuery('#send-location');
+locationButton.on('click', function () {
+    
+    if (!navigator.geolocation) {
+        return alert('Geolocation not supported by your browser.');
+    }
+
+    navigator.geolocation.getCurrentPosition(function (position) {
+        alert('you clicked me!');
+        console.log(position);
+    }, function () {
+        alert('Unable to fetch location.');
     });
 });
